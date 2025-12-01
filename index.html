@@ -1,359 +1,1113 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Livro RPG — Marcelo Saavedra, o mago do conteúdo</title>
-<style>
-  :root{
-    /* Paleta natureza (verde, pedra, madeira) */
-    --wood:#5b4631; --wood-deep:#3f3225; --leaf:#2f5a3a; --leaf-soft:#3f7a50; --moss:#274732;
-    --stone:#47525f; --slate:#1c232b; --mint:#dfe8e3; --gold:#c7a262;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  /* Permitir rolagem horizontal/vertical no body (barra inferior quando necessário) */
-  body{margin:0; font-family: ui-serif, Georgia, "Times New Roman", serif; color:#f3efe3;
-       overflow:auto; overflow-x:auto; scrollbar-gutter:stable both-edges}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</title>
+    <meta name="description" content="Copywriter profissional especializado em SEO e estratégia de conteúdo. Textos que vendem e convertem.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* TEMA ESCURO ORIGINAL */
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0; 
+            /* VERDE ORIGINAL RESTAURADO */
+            --accent: #c8ff00; 
+            --accent-hover: #dfff4f; 
+            --transition-speed: 400ms;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+        }
 
-  /* Fundo com imagem fixa (por trás do livro) */
-  .table{position:fixed; inset:0; z-index:0;
-    background:url('https://i.imgur.com/AkkS7kq.png') center/cover no-repeat fixed;}
-  .table::after{content:""; position:absolute; inset:0; pointer-events:none;
-    /* Vignette sutil para dar profundidade */
-    background:
-      radial-gradient(1200px 600px at 50% -10%, rgba(0,0,0,.28), transparent 65%),
-      linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));}
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  /* Quadro do livro: largura fixa para garantir layout e permitir rolagem lateral */
-  .frame{position:relative; width:1366px; height:980px; margin:clamp(24px, calc(50vh - 490px), 160px) auto 48px; z-index:1}
-  @media (min-width:1700px){ .frame{transform:scale(1.05); transform-origin:top center} }
-  @media (max-height:760px){ .frame{height:1040px} }
+        html {
+            scroll-behavior: smooth;
+        }
 
-  .book{position:absolute; inset:0; display:grid; grid-template-columns:420px 1fr; gap:0; border-radius:18px;
-    box-shadow:0 30px 90px rgba(0,0,0,.6), inset 0 2px 1px rgba(255,255,255,.08);
-    background:linear-gradient(90deg, rgba(0,0,0,.35), transparent 46%, transparent 54%, rgba(0,0,0,.35))}
-  .page{position:relative; overflow:hidden; padding:18px}
-  .page.right{overflow:auto} /* garante que o lado direito role por dentro, evitando cortes */
-  .left{background:
-      linear-gradient(180deg, rgba(0,0,0,.14), rgba(0,0,0,.18)),
-      linear-gradient(180deg, #f2ead4, #e6dbbd)}
-  .right{background:
-      linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.18)),
-      linear-gradient(180deg, #f2ead4, #e6dbbd)}
-  .gutter{position:absolute; left:calc(50% - 8px); top:0; width:16px; height:100%; background:
-      linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.7)); box-shadow: inset 0 0 0 2px rgba(0,0,0,.2)}
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-  .titlebar{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 14px; margin:0 0 14px 0;
-    border:1px solid rgba(0,0,0,.12); border-radius:12px; background:linear-gradient(180deg,#f9f2dd,#eadfbe); color:#2a302e;
-    box-shadow:0 4px 10px rgba(0,0,0,.08)}
-  .titlebar h1{margin:0; font-size:20px; letter-spacing:.5px}
-  /* Título do topo (nome + cargo) maior */
-  .nameTitle{font-size:32px; letter-spacing:.8px; font-weight:800}
-  .roleTop{font-size:15px; color:#3a4a42; font-weight:600}
-  .subtitle{font-size:12px; color:#4f574f}
-  .btn{appearance:none; border:1px solid rgba(0,0,0,.18); background:linear-gradient(180deg,#fff9e7,#e7dbbb);
-       color:#2a2e2a; border-radius:10px; padding:6px 10px; cursor:pointer; font-size:12px}
-  .btn:hover{filter:brightness(1.05)}
-  .btn[aria-pressed="true"]{box-shadow:0 0 0 2px var(--leaf-soft) inset}
+        /* Decorative Grid Background */
+        .decoration-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            /* Grid com cor original e tamanho de 60px */
+            background-image: 
+                linear-gradient(rgba(200, 255, 0, 0.025) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(200, 255, 0, 0.025) 1px, transparent 1px); 
+            
+            background-size: 60px 60px;
+            background-position: 0 0; 
+            
+            z-index: -2;
+            pointer-events: none;
+            
+            animation: gridMove 40s linear infinite;
+        }
 
-  .portrait{display:grid; grid-template-rows:1fr auto; gap:12px; height:calc(100% - 110px)}
-  .portrait-plate{position:relative; border:1px solid rgba(0,0,0,.15); border-radius:14px; overflow:hidden; background:
-      radial-gradient(900px 350px at 50% -10%, rgba(74,112,86,.18), transparent 70%),
-      linear-gradient(180deg, #eef2e9, #dfe7d7)}
-  .avatar{position:absolute; inset:0; display:grid; place-items:center; padding:12px}
-  .avatar img{max-width:100%; max-height:100%; object-fit:contain; filter:drop-shadow(0 14px 28px rgba(0,0,0,.35))}
-  .bio{border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:10px; background:linear-gradient(180deg,#f5efdd,#e8dcbb)}
-  .bio .name{font-weight:700; color:#28302c}
-  .bio .role{font-size:12px; color:#4a524d}
+        /* Keyframes para a animação de scroll do grid (Movimento de 60px) */
+        @keyframes gridMove {
+            0% { 
+                background-position: 0 0; 
+            }
+            100% { 
+                background-position: 60px 0; 
+            }
+        }
 
-  /* Tabs maiores e mais compridas para acompanhar a barra de título */
-  .tabs{display:flex; gap:8px; padding:10px 10px; border:1px solid rgba(0,0,0,.12); border-radius:12px; background:linear-gradient(180deg,#f9f1db,#eadfbe); margin-bottom:12px}
-  .tab{padding:10px 14px; font-size:14px; border-radius:10px; border:1px solid rgba(0,0,0,.14); cursor:pointer; color:#26302a; background:linear-gradient(180deg,#fff9e7,#e9dbb9)}
-  .tab[aria-selected="true"]{box-shadow:0 0 0 2px var(--leaf-soft) inset; border-color:#7aa084}
+        /* Decorative Elements */
+        .decoration {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* LINHA LATERAL ANIMADA (RESPONSIVA) */
+        .decoration-line {
+            width: 2px;
+            height: 30vh;
+            left: 8%;
+            top: 35%;
+            /* Gradiente branco-verde-branco para o efeito de rolagem */
+            background: linear-gradient(to bottom, #ffffff, var(--accent), #ffffff); 
+            background-size: 100% 300%; 
+            background-position: 0% 0%;
+            animation: lineScroll 8s ease-in-out infinite; 
+        }
 
-  /* Aumentei a altura reservada ao conteúdo para evitar cortes no fim */
-  .content{height:calc(100% - 132px); overflow:auto; padding:6px 4px}
-  .section{display:none} .section.active{display:block}
+        @keyframes lineScroll {
+            0% { background-position: 0% 100%; } 
+            100% { background-position: 0% 0%; } 
+        }
 
-  .card{border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:14px; background:linear-gradient(180deg,#f7f0dd,#e7dbb9); color:#2a2e2a; box-shadow:0 4px 10px rgba(0,0,0,.06)}
-  .card h3{margin:2px 0 12px 0; font-size:16px; color:#1f2a22; display:flex; align-items:center; gap:8px}
-  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-  .list{display:grid; gap:8px}
-  .row{display:flex; justify-content:space-between; gap:12px; padding:8px 10px; border:1px solid #c6ccb8; border-radius:10px; background:#f4eed9}
-  .muted{opacity:.9; font-size:12px; color:#4a524d}
+        .decoration-corner {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            border: 1px dashed rgba(200, 255, 0, 0.2); 
+            z-index: -1;
+            pointer-events: none;
+        }
 
-  .attr{display:grid; grid-template-columns: 200px 1fr 54px; gap:10px; align-items:center}
-  .bar{height:10px; border-radius:8px; background:linear-gradient(90deg, #cfd8cc, #b9c7b8)}
-  .bar > span{display:block; height:100%; border-radius:8px; background:linear-gradient(90deg, #7aa084, #274732)}
-  .badge{padding:4px 8px; border-radius:8px; background:#e4f1e8; border:1px solid #c6e0d0; font-size:12px; color:#2b4c38}
+        .decoration-corner-tl {
+            top: 80px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
 
-  /* Linha do tempo maior/mais legível */
-  .timeline{position:relative; padding-left:22px; display:grid; gap:14px}
-  .timeline::before{content:""; position:absolute; left:8px; top:0; bottom:0; width:3px; background:linear-gradient(#7aa084,#47525f)}
-  .t-item{position:relative; padding-left:10px}
-  .t-item::before{content:""; position:absolute; left:-7px; top:.35em; width:12px; height:12px; border-radius:50%; background:var(--moss); box-shadow:0 0 0 2px #cfe3d6}
-  .t-title{font-weight:800; font-size:18px}
-  .t-item li{font-size:14px; line-height:1.45}
+        .decoration-corner-br {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+        }
 
-  .footer{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 0}
+        /* Mini Menu */
+        .mini-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%);
+        }
 
-  /* HUD esverdeado, estilo menu de criação */
-  .hud{position:fixed; inset:0; display:none; place-items:center;
-      background:
-        radial-gradient(1400px 800px at 50% -10%, rgba(46,136,86,.55), rgba(12,32,24,.85) 70%),
-        linear-gradient(180deg, rgba(18,54,40,.85), rgba(10,28,20,.95));
-      backdrop-filter: blur(2px) saturate(1.2); z-index:2}
-  .hud::before{content:""; position:absolute; inset:0; pointer-events:none;
-      background:
-        linear-gradient(transparent 0 96%, rgba(255,255,255,.06) 96%),
-        linear-gradient(90deg, transparent 0 96%, rgba(255,255,255,.06) 96%);
-      background-size: 40px 40px, 40px 40px; opacity:.35}
-  .hud.show{display:grid}
-  .hud-card{width:min(1040px,96vw); border-radius:20px;
-      border:1px solid rgba(48,120,84,.45); padding:18px; background:
-      radial-gradient(1200px 600px at 20% -10%, rgba(255,255,255,.18), transparent 60%),
-      linear-gradient(180deg, #e2f5e9, #cfe8da);
-    color:#0f261c; box-shadow:0 50px 120px rgba(12,40,24,.65), 0 0 0 2px rgba(60,140,100,.15) inset}
-  .hud-head{display:flex; align-items:center; justify-content:space-between; gap:12px; border-bottom:1px solid rgba(0,0,0,.12); padding-bottom:10px}
-  .hud-title{font-size:20px}
-  .hud-body{display:grid; grid-template-columns: 320px 1fr; gap:14px; padding-top:12px}
-  .close{cursor:pointer; border:1px solid rgba(0,0,0,.18); background:linear-gradient(180deg,#f7fbf8,#e2f0ea); padding:8px 12px; border-radius:10px}
-  .ribbon{position:relative; display:inline-block; background:linear-gradient(180deg,#7aa084,#274732); color:#f4f3e8; padding:6px 12px; border-radius:8px}
-  .ribbon::after{content:""; position:absolute; right:-12px; top:0; width:12px; height:100%; background:linear-gradient(180deg,#274732,#1c3a28); clip-path:polygon(0 0, 100% 50%, 0 100%)}
+        .menu-logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            text-decoration: none; 
+            cursor: pointer;
+        }
 
-  .ico{width:16px; height:16px; display:inline-block}
-</style>
+        .menu-nav {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .menu-item {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .menu-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .menu-item:hover {
+            color: var(--text-primary);
+        }
+
+        .menu-item.active {
+            color: var(--accent);
+            animation: menuPulse 1.2s ease-in-out infinite; 
+        }
+
+        .menu-item.active::after {
+            width: 60%;
+        }
+
+        @keyframes menuPulse {
+            0% { 
+                color: var(--accent); 
+                text-shadow: 0 0 12px rgba(200, 255, 0, 0.7); 
+            }
+            50% { 
+                color: var(--text-primary); 
+                text-shadow: 0 0 0 transparent; 
+            }
+            100% {
+                color: var(--accent); 
+                text-shadow: 0 0 12px rgba(200, 255, 0, 0.7); 
+            }
+        }
+
+        .menu-progress {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-left: 1rem;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 2rem;
+        }
+
+        /* Screens Container */
+        .screens-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 6rem 2rem 3rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+        }
+
+        .screen.active {
+            opacity: 1;
+            visibility: visible;
+            position: relative;
+        }
+
+        .screen-content {
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+        }
+
+        .screen-content::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 2px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            transition: height 0.8s ease 0.3s;
+        }
+
+        .screen.active .screen-content::before {
+            height: 80px;
+        }
+
+        /* Typography */
+        .screen-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        .screen.active .screen-title {
+            animation: titleReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes titleReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(25px);
+                filter: blur(8px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* Subtle wave effect for words */
+        .wave-word {
+            display: inline-block;
+            animation: subtleWave 5s ease-in-out infinite;
+        }
+
+        .wave-word:nth-child(1) { animation-delay: 0s; }
+        .wave-word:nth-child(2) { animation-delay: 0.12s; }
+        .wave-word:nth-child(3) { animation-delay: 0.24s; }
+        .wave-word:nth-child(4) { animation-delay: 0.36s; }
+        .wave-word:nth-child(5) { animation-delay: 0.48s; }
+        .wave-word:nth-child(6) { animation-delay: 0.6s; }
+        .wave-word:nth-child(7) { animation-delay: 0.72s; }
+        .wave-word:nth-child(8) { animation-delay: 0.84s; }
+        .wave-word:nth-child(9) { animation-delay: 0.96s; }
+        .wave-word:nth-child(10) { animation-delay: 1.08s; }
+        .wave-word:nth-child(11) { animation-delay: 1.2s; }
+        .wave-word:nth-child(12) { animation-delay: 1.32s; }
+        .wave-word:nth-child(13) { animation-delay: 1.44s; }
+        .wave-word:nth-child(14) { animation-delay: 1.56s; }
+        .wave-word:nth-child(15) { animation-delay: 1.68s; }
+        .wave-word:nth-child(16) { animation-delay: 1.8s; }
+
+        @keyframes subtleWave {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-2px);
+            }
+        }
+
+        /* 1. EFEITO DESTAQUE H1/H2 (HIGHLIGHT) - Cores originais e shimmer deslizante */
+        .highlight {
+            position: relative;
+            display: inline;
+            /* Gradiente animado com cores originais (verde, amarelo, branco) */
+            background: linear-gradient(
+                90deg, 
+                #c8ff00 0%, 
+                #a8e600 20%, 
+                #eeff88 40%, 
+                #ffffff 50%, 
+                #eeff88 60%, 
+                #a8e600 80%, 
+                #c8ff00 100%
+            ); 
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 5s ease-in-out infinite;
+        }
+
+        /* Animação Shimmer (Faz o gradiente se mover) */
+        @keyframes shimmer {
+            0% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+
+        /* 1. SUBLINHADO ANIMADO (DECORATIVO) */
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            animation: highlightUnderline 3s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Animação Sublinhado Pulsante */
+        @keyframes highlightUnderline {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .screen-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+        }
+
+        .screen.active .screen-subtitle {
+            animation: fadeInUp 0.6s ease forwards 0.2s;
+        }
+
+        .screen-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary); 
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+        }
+
+        .screen.active .screen-description {
+            animation: fadeInUp 0.6s ease forwards 0.4s;
+        }
+
+        .screen-description strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+            opacity: 0;
+        }
+
+        .screen.active .btn-group {
+            animation: fadeInUp 0.6s ease forwards 0.5s;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            text-align: left;
+        }
+
+        /* 2. EFEITO HOVER UNIFICADO (BTNS E PORTFOLIO) */
+        .btn-ghost, .portfolio-item {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.02); 
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            overflow: hidden;
+            border-radius: 6px; 
+            transition: all 0.3s ease-out, box-shadow 0.3s ease-out; 
+            text-decoration: none; 
+            padding: 1.25rem 1.5rem; 
+        }
+        
+        /* 2. HOVER SWIPE: Elemento que se move */
+        .btn-ghost::before, .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%; 
+            width: 100%; 
+            height: 100%;
+            
+            /* Gradiente com cor original */
+            background: linear-gradient(90deg, transparent, rgba(200, 255, 0, 0.15), transparent); 
+            
+            opacity: 1; 
+            transition: left 0.6s ease; 
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .btn-ghost:hover::before, .portfolio-item:hover::before {
+            left: 100%; 
+        }
+        
+        /* 2. ESTADO HOVER (Unificado) */
+        .btn-ghost:hover, .portfolio-item:hover {
+            color: var(--accent);
+            transform: translateY(-5px) scale(1.02); 
+            background: rgba(200, 255, 0, 0.08); 
+            border-color: var(--accent); 
+            box-shadow: 0 10px 30px rgba(200, 255, 0, 0.2); 
+        }
+
+        .btn-ghost::after { content: none; }
+
+        .btn-ghost .btn-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-ghost:hover .btn-arrow {
+            transform: translateX(4px);
+        }
+
+        .btn-primary {
+            background: rgba(200, 255, 0, 0.85); 
+            color: var(--bg-primary);
+            font-weight: 600;
+            border: 2px solid rgba(200, 255, 0, 0.85); 
+            border-radius: 6px;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(200, 255, 0, 0.25); 
+        }
+
+        .btn-secondary {
+            color: var(--text-secondary);
+            padding: 0.75rem 0;
+        }
+
+        .btn-secondary:hover {
+            color: var(--text-primary);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+            opacity: 0;
+        }
+
+        .screen.active .portfolio-grid {
+            animation: fadeInUp 0.6s ease forwards 0.5s;
+        }
+
+        /* Reaplicando estilos base para Portfolio Item após o unificado */
+        .portfolio-item {
+            padding: 1.25rem 1.5rem; 
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Removido o ::after (borda de brilho) para deixar a borda simples */
+        .portfolio-item::after { 
+            content: none;
+        }
+        
+        /* ÍCONES: Movimento de rotação e zoom e Bounce */
+        .portfolio-item:hover .portfolio-icon {
+            color: var(--accent);
+            transform: rotate(5deg) scale(1.2) translateY(-4px); 
+            animation: bounceIcon 0.8s ease-in-out infinite alternate; 
+        }
+
+        /* Keyframes para o efeito de "salto" leve */
+        @keyframes bounceIcon {
+            0% {
+                transform: rotate(5deg) scale(1.2) translateY(-4px);
+            }
+            100% {
+                transform: rotate(5deg) scale(1.2) translateY(0px);
+            }
+        }
+
+        .portfolio-icon {
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease; 
+            z-index: 2; 
+        }
+
+        .portfolio-label {
+            font-size: 0.95rem;
+            font-weight: 500;
+            z-index: 2; 
+        }
+
+        /* Pillars Section */
+        .pillars {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            opacity: 0;
+        }
+
+        .screen.active .pillars {
+            animation: fadeInUp 0.6s ease forwards 0.5s;
+        }
+
+        .pillar {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease, background 0.3s ease;
+            cursor: default;
+        }
+
+        .pillar:last-child {
+            border-bottom: none;
+        }
+
+        .pillar:hover {
+            transform: translateX(12px);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .pillar-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            transition: color 0.3s ease;
+        }
+
+        .pillar:hover .pillar-title {
+            color: var(--accent);
+        }
+
+        .pillar-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            gap: 1.5rem;
+            opacity: 0;
+        }
+
+        .screen.active .about-content {
+            animation: fadeInUp 0.6s ease forwards 0.5s;
+        }
+
+        .about-paragraph {
+            color: var(--text-secondary); 
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0;
+        }
+
+        .screen.active .cta-section {
+            animation: fadeInUp 0.6s ease forwards 0.6s;
+        }
+
+        .cta-headline {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section .btn-group {
+            opacity: 1;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Overlay for mobile menu */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+        }
+
+        .menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mini-menu {
+                padding: 1rem;
+            }
+
+            .menu-nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 2rem;
+                gap: 0.5rem;
+                transition: right 0.3s ease;
+            }
+
+            .menu-nav.open {
+                right: 0;
+            }
+
+            .menu-item {
+                font-size: 1.1rem;
+                padding: 1rem 0;
+            }
+
+            .menu-progress {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .menu-toggle.open span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-toggle.open span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.open span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .screen {
+                padding: 5rem 1.5rem 2rem;
+            }
+
+            .screen-title {
+                font-size: clamp(1.75rem, 7vw, 2.5rem);
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                gap: 0.75rem;
+            }
+
+            .screen-content::before {
+                display: none;
+            }
+
+            /* CORREÇÃO CRÍTICA: Remove a linha lateral em telas pequenas */
+            .decoration-line {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="table"></div>
-<div class="frame">
-  <div class="book">
-    <div class="page left">
-      <div class="titlebar">
-        <div>
-          <h1 class="nameTitle">Marcelo Saavedra</h1>
-          <div class="subtitle roleTop">Copywriter Sênior • Estrategista de Conteúdo</div>
-        </div>
-        <div>
-          <button class="btn" id="btnMusic" aria-pressed="true" title="M">Música: ON</button>
-          <button class="btn" id="btnHUD" title="H">Abrir HUD</button>
-        </div>
-      </div>
-      <div class="portrait">
-        <div class="portrait-plate">
-          <div class="avatar">
-            <!-- ==========================================================
-                 🔰 IMAGEM FIXA DO PERSONAGEM (ONLINE)
-                 Use um link DIRETO do Imgur/PNG/JPG/WebP. Substitua a URL abaixo se desejar.
-            =========================================================== -->
-            <img id="avatarImg" alt="Marcelo Saavedra — retrato"
-                 src="https://i.imgur.com/EqHBI4w.png" loading="eager" crossorigin="anonymous"/>
-          </div>
-        </div>
-        <div class="bio">
-          <div class="name">Marcelo Saavedra</div>
-          <div class="role">Copywriter Sênior • Estrategista de Conteúdo</div>
-        </div>
-      </div>
-    </div>
+    
+    <div class="decoration-grid"></div>
+    <div class="decoration decoration-line"></div>
+    <div class="decoration-corner decoration-corner-tl"></div>
+    <div class="decoration-corner decoration-corner-br"></div>
 
-    <div class="gutter" aria-hidden="true"></div>
-
-    <div class="page right">
-      <div class="titlebar">
-        <div>
-          <h1>Ficha do trabalhador</h1>
-          <div class="subtitle">Ajuste as páginas como em um RPG de mesa</div>
+    <!-- Mini Menu -->
+    <nav class="mini-menu">
+        <!-- MS linkado para a tela inicial -->
+        <a class="menu-logo" data-navigate="inicio">MS</a>
+        
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-        <div class="muted">Atalhos: 1 Atributos · 2 Habilidades · 3 Conquistas · 4 História · H HUD · M Música</div>
-      </div>
-      <nav class="tabs" role="tablist">
-        <button class="tab" role="tab" aria-selected="true" data-tab="stats">Atributos</button>
-        <button class="tab" role="tab" aria-selected="false" data-tab="skills">Habilidades</button>
-        <button class="tab" role="tab" aria-selected="false" data-tab="achv">Conquistas</button>
-        <button class="tab" role="tab" aria-selected="false" data-tab="story">História</button>
-      </nav>
-      <div class="content">
-        <section id="tab-stats" class="section active">
-          <div class="grid-2">
-            <div class="card">
-              <h3><svg class="ico" viewBox="0 0 24 24"><path fill="#274732" d="M12 2l3 7h7l-5.5 4 2 7L12 17l-6.5 3 2-7L2 9h7z"/></svg> Atributos centrais</h3>
-              <div class="list" id="attrs"></div>
-              <div class="muted" style="margin-top:6px">Valores definidos com base no currículo.</div>
+
+        <div class="menu-nav" id="menuNav">
+            <a class="menu-item active" data-screen="inicio">Início</a>
+            <a class="menu-item" data-screen="portfolio">Portfólio</a>
+            <a class="menu-item" data-screen="estrategia">Estratégia</a>
+            <a class="menu-item" data-screen="sobre">Sobre</a>
+            <a class="menu-item" data-screen="contato">Contato</a>
+            <span class="menu-progress" id="menuProgress">1 de 5</span>
+        </div>
+    </nav>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Screens Container -->
+    <main class="screens-container">
+        
+        <!-- Tela 1: Início -->
+        <section class="screen active" id="inicio">
+            <div class="screen-content">
+                <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                <!-- CORREÇÃO DE PORTUGUÊS: "convert" para "converter" -->
+                <h1 class="screen-title"><span class="wave-word">É</span> <span class="wave-word">simples:</span> <span class="wave-word">você</span> <span class="wave-word">quer</span> <span class="wave-word">que</span> <span class="wave-word">seu</span> <span class="wave-word">negócio</span> <span class="highlight wave-word">venda</span>. <span class="wave-word">Eu</span> <span class="wave-word">escrevo</span> <span class="wave-word">os</span> <span class="wave-word">conteúdos</span> <span class="wave-word">que</span> <span class="wave-word">vão</span> <span class="highlight wave-word">converter</span>.</h1>
+                <p class="screen-description">Olá, meu nome é Marcelo e esse não é um site convencional. O que você vai encontrar aqui não são textos bonitos e promessas vazias. Mas sim, a prova de que eu <strong>posso escrever conteúdos que vendem</strong> bem. E se é isso o que você quer pro seu negócio, então é só escolher o que mais te interessa abaixo:</p>
+                
+                <div class="btn-group">
+                    <button class="btn btn-ghost" data-navigate="portfolio">
+                        Veja meus últimos trabalhos (e o que posso fazer)
+                        <span class="btn-arrow">→</span>
+                    </button>
+                    <!-- TEXTO ALTERADO: Entenda como eu trabalho -->
+                    <button class="btn btn-ghost" data-navigate="estrategia">
+                        Entenda como eu trabalho
+                        <span class="btn-arrow">→</span>
+                    </button>
+                    <!-- TEXTO ALTERADO: Conheça um pouco sobre mim -->
+                    <button class="btn btn-ghost" data-navigate="sobre">
+                        Conheça um pouco sobre mim
+                        <span class="btn-arrow">→</span>
+                    </button>
+                    <!-- TEXTO ALTERADO: Vamos conversar -->
+                    <button class="btn btn-ghost" data-navigate="contato">
+                        Vamos conversar
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
             </div>
-            <div class="card">
-              <h3><svg class="ico" viewBox="0 0 24 24"><path fill="#274732" d="M4 4h16v2H4zm2 4h12v2H6zm-2 4h16v2H4zm2 4h8v2H6z"/></svg> Perícias derivadas (estilo RPG)</h3>
-              <div class="list" id="derived"></div>
+        </section>
+
+        <!-- Tela 2: Portfólio -->
+        <section class="screen" id="portfolio">
+            <div class="screen-content">
+                <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                <h1 class="screen-title"><span class="wave-word">Aqui</span> <span class="wave-word">está</span> <span class="wave-word">a</span> <span class="wave-word">prova</span> <span class="wave-word">de</span> <span class="wave-word">que</span> <span class="wave-word">eu</span> <span class="wave-word">sei</span> <span class="wave-word">fazer</span> <span class="wave-word">o</span> <span class="wave-word">que</span> <span class="wave-word">prometo</span> <span class="highlight wave-word">(ou seja, copys de qualidade)</span></h1>
+                <p class="screen-description">Eu não vou apenas <strong>FALAR</strong> o que eu sei fazer. Você vai <strong>COMPROVAR</strong> pessoalmente. Abaixo eu deixei uma coleção de todo tipo de conteúdo que já criei (seja para redes sociais, anúncios, copys ou SEO). Então, se você está à procura de <strong>um profissional que vai ajudar seu negócio</strong>, esses materiais podem confirmar o que você procura.</p>
+                
+                <div class="portfolio-grid">
+                    <a href="https://drive.google.com/drive/folders/1DBTSJDQ1zpd27plO-BIyN7ZgEM76ZBT8?usp=sharing" target="_blank" rel="noopener" class="portfolio-item" data-id="item-1">
+                        <span class="portfolio-icon">📱</span>
+                        <span class="portfolio-label">Conteúdo orgânico (mídias sociais)</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1dUmroWBQW1zI7Jw3BeQChjIXTfabv0tW?usp=drive_link" target="_blank" rel="noopener" class="portfolio-item" data-id="item-2">
+                        <span class="portfolio-icon">🎯</span>
+                        <span class="portfolio-label">Anúncios para conversão</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1lPdl_zAPKZiL-jIEBR116uhi90eeXrw4?usp=sharing" target="_blank" rel="noopener" class="portfolio-item" data-id="item-3">
+                        <span class="portfolio-icon">🔍</span>
+                        <span class="portfolio-label">SEO (artigos e blog posts)</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1c2EZBKxBf9run7vysCUST-nJmD1-yRrE?usp=drive_link" target="_blank" rel="noopener" class="portfolio-item" data-id="item-4">
+                        <span class="portfolio-icon">🎬</span>
+                        <span class="portfolio-label">Roteiros e vídeos</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1sjX8Ng1ibv9cBCvLASquwEXrDw0HOFHH?usp=drive_link" target="_blank" rel="noopener" class="portfolio-item" data-id="item-5">
+                        <span class="portfolio-icon">📚</span>
+                        <span class="portfolio-label">Ebooks</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1urh7q8AuAJK1iY0dhbHJQ09XAFzw3-H2?usp=drive_link" target="_blank" rel="noopener" class="portfolio-item" data-id="item-6">
+                        <span class="portfolio-icon">🖥️</span>
+                        <span class="portfolio-label">Páginas e LPs</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1dGi7puIK0-GB2HuFIgSPavmYOlIrOPMp?usp=drive_link" target="_blank" rel="noopener" class="portfolio-item" data-id="item-7">
+                        <span class="portfolio-icon">✉️</span>
+                        <span class="portfolio-label">E-mails e fluxos</span>
+                    </a>
+                </div>
+
+                <div class="cta-section">
+                    <p class="cta-headline">Gostou do que viu? Vamos conversar</p>
+                    <div class="btn-group">
+                        <a href="https://api.whatsapp.com/send/?phone=%2B5561991888981&text=Quero+melhorar+minhas+vendas+com+copywriting+profissional&type=phone_number&app_absent=0" target="_blank" rel="noopener" class="btn btn-primary">
+                            É só me chamar por aqui →
+                        </a>
+                        <button class="btn btn-secondary" data-navigate="inicio">
+                            ← Voltar ao início
+                        </button>
+                    </div>
+                </div>
             </div>
-          </div>
         </section>
-        <section id="tab-skills" class="section">
-          <div class="card">
-            <h3><svg class="ico" viewBox="0 0 24 24"><path fill="#274732" d="M12 2l4 4-8 8-4-4z"/></svg> Competências técnicas</h3>
-            <div class="list" id="skills-tech"></div>
-          </div>
-          <div class="card" style="margin-top:10px">
-            <h3><svg class="ico" viewBox="0 0 24 24"><path fill="#274732" d="M12 12a5 5 0 110-10 5 5 0 010 10zm-7 9v-2a5 5 0 0110 0v2H5z"/></svg> Competências interpessoais</h3>
-            <div class="list" id="skills-soft"></div>
-          </div>
-          <div class="card" style="margin-top:10px">
-            <h3><svg class="ico" viewBox="0 0 24 24"><path fill="#274732" d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7zm0 9a2 2 0 100-4 2 2 0 000 4z"/></svg> Idiomas</h3>
-            <div class="list" id="langs"></div>
-          </div>
+
+        <!-- Tela 3: Estratégia -->
+        <section class="screen" id="estrategia">
+            <div class="screen-content">
+                <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                <h1 class="screen-title"><span class="wave-word">Estratégia</span> <span class="wave-word">e</span> <span class="wave-word">execução.</span> <span class="highlight wave-word">Entenda exatamente</span> <span class="wave-word">o</span> <span class="wave-word">que</span> <span class="wave-word">e</span> <span class="wave-word">como</span> <span class="wave-word">eu</span> <span class="wave-word">escrevo</span></h1>
+                <p class="screen-description">Sou um profissional sênior, não porque soa bonito, mas porque tenho um foco bastante estratégico. Eu sei que até o Chat GPT pode fazer um texto OK, mas pra você vender bem, <strong>seus conteúdos precisam ser (e serão) incríveis!</strong></p>
+                
+                <div class="pillars">
+                    <div class="pillar">
+                        <h3 class="pillar-title">O funil como ponto de partida</h3>
+                        <p class="pillar-text">Eu não crio conteúdos avulsos. Todo o texto é pensado dentro do seu funil (Atração, Qualificação e Conversão), garantindo que cada palavra puxe o cliente para a próxima etapa da jornada.</p>
+                    </div>
+                    <div class="pillar">
+                        <!-- SUBTÍTULO ALTERADO -->
+                        <h3 class="pillar-title">Pesquisa a fundo (mesmo)</h3>
+                        <p class="pillar-text">Antes de digitar a primeira palavra, eu mergulho na sua audiência. O processo de pesquisa é o diferencial que me permite levantar a dor exata e traduzir o desejo em copy que seu cliente não consegue ignorar.</p>
+                    </div>
+                    <div class="pillar">
+                        <h3 class="pillar-title">Execução focada em vendas</h3>
+                        <p class="pillar-text">O resultado é um marketing que trabalha em ciclos. Estruturas de Inbound prósperas, SEO que ranqueia com intenção de compra e emails que movem a agulha do seu faturamento.</p>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-ghost" data-navigate="contato">
+                        Quero esse marketing avançado
+                        <span class="btn-arrow">→</span>
+                    </button>
+                    <!-- TEXTO ALTERADO: Conheça um pouco mais sobre mim -->
+                    <button class="btn btn-ghost" data-navigate="sobre">
+                        Conheça um pouco mais sobre mim
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
+            </div>
         </section>
-        <section id="tab-achv" class="section">
-          <div class="card">
-            <h3><svg class="ico" viewBox="0 0 24 24"><path fill="#274732" d="M12 2l3 7h7l-5.5 4 2 7L12 17l-6.5 3 2-7L2 9h7z"/></svg> Conquistas registradas</h3>
-            <div class="list" id="achievements"></div>
-          </div>
+
+        <!-- Tela 4: Contato -->
+        <section class="screen" id="contato">
+            <div class="screen-content">
+                <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                <h1 class="screen-title"><span class="wave-word">Sonha</span> <span class="wave-word">com</span> <span class="wave-word">um</span> <span class="wave-word">marketing</span> <span class="wave-word">de</span> <span class="wave-word">qualidade</span> <span class="wave-word">que</span> <span class="wave-word">venda</span> <span class="wave-word">ainda</span> <span class="wave-word">mais?</span> <span class="highlight wave-word">Então vamos conversar!</span></h1>
+                <p class="screen-description">Eu sei que seu tempo é corrido, mas <strong>também sei que você quer vender mais</strong>. Então me avise seu melhor dia e horário e marcamos uma conversa rápida, sem compromisso e focada 100% em estratégia.</p>
+                
+                <div class="btn-group">
+                    <a href="https://api.whatsapp.com/send/?phone=%2B5561991888981&text=Quero+melhorar+minhas+vendas+com+copywriting+profissional&type=phone_number&app_absent=0" target="_blank" rel="noopener" class="btn btn-primary">
+                        É só me chamar por aqui →
+                    </a>
+                    <button class="btn btn-secondary" data-navigate="inicio">
+                        ← Voltar ao Início
+                    </button>
+                </div>
+            </div>
         </section>
-        <section id="tab-story" class="section">
-          <div class="card">
-            <h3><svg class="ico" viewBox="0 0 24 24"><path fill="#274732" d="M3 4h18v2H3zm0 4h12v2H3zm0 4h18v2H3zm0 4h12v2H3z"/></svg> Linha do tempo</h3>
-            <div class="timeline" id="timeline"></div>
-          </div>
-          <div class="card" style="margin-top:10px">
-            <h3><svg class="ico" viewBox="0 0 24 24"><path fill="#274732" d="M4 4h16v14H4zM2 20h20v2H2z"/></svg> Cursos & Formação</h3>
-            <div class="list" id="courses"></div>
-          </div>
+
+        <!-- Tela 5: Sobre -->
+        <section class="screen" id="sobre">
+            <div class="screen-content">
+                <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                <h1 class="screen-title"><span class="wave-word">Prazer,</span> <span class="wave-word">me</span> <span class="wave-word">chamo</span> <span class="highlight wave-word">Marcelo Saavedra</span> <span class="wave-word">e</span> <span class="wave-word">quero</span> <span class="wave-word">fazer</span> <span class="wave-word">seu</span> <span class="wave-word">marketing</span> <span class="wave-word">ir</span> <span class="wave-word">além</span></h1>
+                <p class="screen-subtitle">Eu sei que você não entrou aqui pra ler um textão, então vou te mostrar rapidamente quem eu sou, e um pouquinho da minha jornada.</p>
+                
+                <div class="about-content">
+                    <p class="about-paragraph">Meu nome é Marcelo, sou carioca, casado com uma esposa maravilhosa e cristão devoto. Eu amo viajar, assistir e ler boas ficções e narrativas, e gosto muito de açaí.</p>
+                    
+                    <p class="about-paragraph">Quanto à minha carreira, já passei por vários tipos de empresas, mas principalmente B2B e SaaS. Já atuei com uma empresa de viagens, de emissão fiscal, gestão contábil, RH e departamento pessoal, além de outros serviços pontuais.</p>
+                    
+                    <p class="about-paragraph">Assim, como já trabalhei com produtos e públicos diferentes, pude aprender e testar várias estratégias para atrair, qualificar e converter clientes.</p>
+                    
+                    <p class="about-paragraph">Ou seja, SEO, funil de conteúdo, fluxos de Inbound e, claro, diferentes tipos de copys. Isso significa que não vou apenas escrever um texto simples, mas planejar bastante e focar totalmente em uma estratégia macro.</p>
+                    
+                    <p class="about-paragraph">Por fim, se você quer conferir um mais do meu trabalho e, de fato, a qualidade do que eu posso escrever, é só clicar abaixo.</p>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-ghost" data-navigate="portfolio">
+                        Ver alguns dos meus trabalhos
+                        <span class="btn-arrow">→</span>
+                    </button>
+                    <button class="btn btn-ghost" data-navigate="contato">
+                        Quero conversar agora
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
+            </div>
         </section>
-      </div>
-      <div class="footer">
-        <span class="muted">HUD ampliado com visão geral do personagem</span>
-        <div><button class="btn" id="btnExport">Exportar ficha</button></div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="hud" id="hud">
-  <div class="hud-card">
-    <div class="hud-head">
-      <div class="hud-title"><span class="ribbon">HUD — Marcelo Saavedra</span></div>
-      <button class="close" id="btnCloseHUD">Fechar</button>
-    </div>
-    <div class="hud-body">
-      <div>
-        <div id="hudPortrait" style="display:grid; place-items:center; margin-bottom:10px"></div>
-        <div class="badge" id="hudTag">Copywriter Sênior • Estrategista</div>
-      </div>
-      <div>
-        <div class="card" style="margin-bottom:8px">
-          <h3>Atributos</h3>
-          <div class="list" id="hudAttrs"></div>
-        </div>
-        <div class="card">
-          <h3>Perícias & Destaques</h3>
-          <div class="list" id="hudSkills"></div>
-        </div>
-      </div>
-    </div>
-    <div class="muted" style="padding-top:6px">H para fechar • M para música</div>
-  </div>
-</div>
+    </main>
 
-<script>
-(function(){
-  // ===== Dados do currículo =====
-  const CV = {
-    conquistas:[
-      'Mais de 12 mil seguidores e ~5 mil cliques mensais em CTAs — Emitte',
-      'Média de ~500 leads ICP High Ticket por mês (conteúdo + funil) — Emitte',
-      'Apoio no lançamento de produto e produção de todos os materiais — Pontua'
-    ],
-    experiencias:[
-      { cargo:'Analista de Conteúdo Sênior', org:'Emitte / Emitte Contábil', periodo:'Out/2021 – atual', itens:[
-        'Planejamento de conteúdo (funil completo).',
-        'Copy para anúncios, LPs, e-mails e materiais ricos.',
-        'Roteiros para YouTube e VSL; artigos e SEO.',
-        'Análise de dados (GA4, Search Console, Semrush)'
-      ]},
-      { cargo:'Copywriter Freelancer', org:'Pontua', periodo:'Ago/2024 – Mai/2025', itens:[
-        'Autoridade e conversão, fluxos de e-mails e LPs.', 'E-books e campanhas sazonais.'
-      ]},
-      { cargo:'Assistente de Marketing', org:'Compartilha Club', periodo:'Jan – Out/2021', itens:[
-        'Conteúdos institucionais e redes sociais.', 'Suporte a campanhas e relatórios.'
-      ]}
-    ],
-    cursos:[ 'Marketing Digital (Uninter) — em andamento', 'Growth Hacking — Alura', 'Google Analytics 4 — Alura', 'SEO: estratégias e ferramentas — Alura', 'Inbound Marketing — Rock University', 'Produção de Conteúdo para Web — Rock University' ],
-    skillsTech:[ 'Domínio de IAs generativas e agentes', 'Roteirização para VEO3', 'Análise de dados (GA4, GSC, Semrush)', 'HubSpot, RD Station e automações', 'Copy para redes e Inbound', 'SEO e escrita para Web' ],
-    skillsSoft:[ 'Organização e pontualidade', 'Criação de novas ideias', 'Abertura a feedbacks', 'Trabalho em equipe', 'Apresentação e comunicação' ],
-    idiomas:['Inglês (avançado)', 'Espanhol (intermediário)']
-  };
+    <script>
+        // Screen navigation system
+        const screens = {
+            'inicio': { index: 1, element: document.getElementById('inicio') },
+            'portfolio': { index: 2, element: document.getElementById('portfolio') },
+            'estrategia': { index: 3, element: document.getElementById('estrategia') },
+            'sobre': { index: 4, element: document.getElementById('sobre') },
+            'contato': { index: 5, element: document.getElementById('contato') }
+        };
 
-  // ===== Atributos =====
-  const ATTRS = [ ['Criatividade',9], ['Escrita',10], ['Trabalho em equipe',8.7], ['Prazos',10], ['Adaptabilidade',9], ['Domínio IA',9.8], ['Inovação',9] ];
-  const DERIVED = [ ['Estratégia de Conteúdo (Épica)','+15% alcance orgânico e consistência de funil'], ['Storytelling & Narrativa (Rara)','+20% retenção em vídeo e social'], ['SEO orientado a dados (Rara)','+30% tráfego qualificado em 90 dias'], ['Automação/IA aplicada (Rara)','−35% tempo de produção, +padronização'], ['Inbound Marketing (Rara)','arquitetura de funil, automação e nutrição de leads (MQLs)'], ['CRO & Copy de Conversão (Rara)','+12–25% taxas em LPs'], ['Gestão de Pipeline Editorial (Incomum)','cadência previsível e documentação'], ['Roteiros p/ YouTube & VSL (Rara)','melhora watch-time e CTA consciente'] ];
+        const menuItems = document.querySelectorAll('.menu-item');
+        const menuProgress = document.getElementById('menuProgress');
+        const menuToggle = document.getElementById('menuToggle');
+        const menuNav = document.getElementById('menuNav');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const menuLogo = document.querySelector('.menu-logo'); // Seleciona o MS
 
-  const el = (q)=>document.querySelector(q);
-  const tabs = document.querySelectorAll('.tab');
-  const sections = {stats:el('#tab-stats'), skills:el('#tab-skills'), achv:el('#tab-achv'), story:el('#tab-story')};
+        let currentScreen = 'inicio';
 
-  function renderAttrs(){ const wrap = el('#attrs'); wrap.innerHTML=''; ATTRS.forEach(([name,val])=>{ const pct = Math.min(100, Math.round((val/10)*100)); const row = document.createElement('div'); row.className='attr'; row.innerHTML = `<div>${name}</div><div class="bar"><span style="width:${pct}%"></span></div><div class="badge">${val}</div>`; wrap.appendChild(row); }); }
-  function renderDerived(){ el('#derived').innerHTML = DERIVED.map(([k,v])=>`<div class="row"><span><b>${k}</b></span><span class="muted">${v}</span></div>`).join(''); }
-  function fillSkills(){ el('#skills-tech').innerHTML = CV.skillsTech.map(s=>`<div class="row"><span>${s}</span></div>`).join(''); el('#skills-soft').innerHTML = CV.skillsSoft.map(s=>`<div class="row"><span>${s}</span></div>`).join(''); el('#langs').innerHTML = CV.idiomas.map(s=>`<div class="row"><span>${s}</span></div>`).join(''); }
-  function fillAchievements(){ el('#achievements').innerHTML = CV.conquistas.map(s=>`<div class="row"><span>${s}</span></div>`).join(''); }
-  function fillTimeline(){ el('#timeline').innerHTML = CV.experiencias.map(x=>`<div class="t-item"><div class="t-title">${x.cargo} — ${x.org} <span class="muted">(${x.periodo})</span></div><ul class="muted" style="margin:4px 0 0 12px">${x.itens.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join(''); el('#courses').innerHTML = CV.cursos.map(c=>`<div class="row"><span>${c}</span></div>`).join(''); }
+        function navigateTo(screenId) {
+            if (!screens[screenId] || screenId === currentScreen) return;
 
-  // ===== HUD =====
-  const hud = el('#hud');
-  function openHUD(){ const hp = el('#hudPortrait'); hp.innerHTML=''; const img = document.createElement('img'); img.src = el('#avatarImg').src; img.style.maxWidth='100%'; img.style.borderRadius='12px'; img.style.boxShadow='0 10px 24px rgba(0,0,0,.25)'; hp.appendChild(img); el('#hudAttrs').innerHTML = ATTRS.map(([n,v])=>`<div class="row"><span>${n}</span><b>${v}</b></div>`).join(''); const highlights = ['Domínio de IAs generativas e agentes','Análise de dados (GA4, GSC, Semrush)','SEO e escrita para Web','CRO e Copy para LPs']; el('#hudSkills').innerHTML = highlights.map(s=>`<div class="row"><span>${s}</span></div>`).join(''); hud.classList.add('show'); }
-  function closeHUD(){ hud.classList.remove('show'); }
-  el('#btnHUD').addEventListener('click', openHUD); el('#btnCloseHUD').addEventListener('click', closeHUD);
+            // Close mobile menu if open
+            closeMobileMenu();
 
-  function selectTab(id){ tabs.forEach(t=>t.setAttribute('aria-selected', t.dataset.tab===id ? 'true':'false')); Object.entries(sections).forEach(([k,sec])=>sec.classList.toggle('active', k===id)); }
-  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click', ()=>selectTab(t.dataset.tab)));
-  window.addEventListener('keydown',(e)=>{ if(e.key==='1')selectTab('stats'); if(e.key==='2')selectTab('skills'); if(e.key==='3')selectTab('achv'); if(e.key==='4')selectTab('story'); if(e.key.toLowerCase()==='h'){ if(hud.classList.contains('show')) closeHUD(); else openHUD(); } if(e.key.toLowerCase()==='m') document.getElementById('btnMusic').click(); });
+            // Fade out current screen
+            screens[currentScreen].element.classList.remove('active');
+            
+            // Update current screen reference
+            currentScreen = screenId;
 
-  el('#btnExport').addEventListener('click', ()=>{ const data = { nome:'Marcelo Saavedra — o mago do conteúdo', titulo:'Copywriter Sênior | Estrategista de Conteúdo', attrs:ATTRS, derived:DERIVED, conquistas:CV.conquistas, skillsTech:CV.skillsTech, skillsSoft:CV.skillsSoft, idiomas:CV.idiomas, experiencias:CV.experiencias, cursos:CV.cursos }; const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='ficha-marcelo-saavedra.json'; a.click(); URL.revokeObjectURL(url); });
+            // Fade in new screen
+            setTimeout(function() {
+                screens[screenId].element.classList.add('active');
+                
+                // Update menu
+                updateMenu(screenId);
+                
+                // Update URL
+                history.pushState({ screen: screenId }, '', '#' + screenId);
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }, 200);
+        }
 
-  // ===== Música LOFI sincronizada (sequenciador) =====
-  let audioCtx=null, isPlaying=false, schedulerId=null, lookahead=25, scheduleAhead=0.2; const tempo=84; const secondsPerBeat=60/tempo; let currentStep=0, nextNoteTime=0; const musicBtn=document.getElementById('btnMusic');
-  function noteFreq(n){ const m=/^([A-G])(#|b)?(\d)$/.exec(n); if(!m) return 440; const A4=440,S=Math.pow(2,1/12); const map={C:-9,D:-7,E:-5,F:-4,G:-2,A:0,B:2}; let s=map[m[1]]; if(m[2]==='#') s++; if(m[2]==='b') s--; const o=+m[3]; return A4*Math.pow(S, s+(o-4)*12); }
-  function kick(t){ const o=audioCtx.createOscillator(); o.type='sine'; o.frequency.setValueAtTime(120,t); o.frequency.exponentialRampToValueAtTime(40,t+0.25); const g=audioCtx.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.7,t+0.01); g.gain.exponentialRampToValueAtTime(0.0001,t+0.45); o.connect(g); g.connect(audioCtx.destination); o.start(t); o.stop(t+0.5);} 
-  function snare(t){ const b=audioCtx.createBuffer(1,audioCtx.sampleRate*0.2,audioCtx.sampleRate); const d=b.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; const s=audioCtx.createBufferSource(); s.buffer=b; const f=audioCtx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=1800; f.Q.value=0.7; const g=audioCtx.createGain(); g.gain.setValueAtTime(0.12,t); g.gain.exponentialRampToValueAtTime(0.0001,t+0.2); s.connect(f); f.connect(g); g.connect(audioCtx.destination); s.start(t);} 
-  function hat(t, v=0.08){ const b=audioCtx.createBuffer(1,audioCtx.sampleRate*0.05,audioCtx.sampleRate); const d=b.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; const s=audioCtx.createBufferSource(); s.buffer=b; const f=audioCtx.createBiquadFilter(); f.type='highpass'; f.frequency.value=6500; const g=audioCtx.createGain(); g.gain.setValueAtTime(v,t); g.gain.exponentialRampToValueAtTime(0.0001,t+0.05); s.connect(f); f.connect(g); g.connect(audioCtx.destination); s.start(t);} 
-  const master={bus:null,delay:null};
-  function initBuses(){ master.bus=audioCtx.createGain(); master.bus.gain.value=0.18; master.delay=audioCtx.createDelay(); master.delay.delayTime.value=0.26; const fb=audioCtx.createGain(); fb.gain.value=0.22; master.delay.connect(fb); fb.connect(master.delay); master.bus.connect(master.delay); master.delay.connect(audioCtx.destination); master.bus.connect(audioCtx.destination); const b=audioCtx.createBuffer(1,audioCtx.sampleRate*2,audioCtx.sampleRate); const d=b.getChannelData(0); for(let i=0;i<d.length;i++){ d[i]=(Math.random()*2-1)*0.03; } const src=audioCtx.createBufferSource(); src.buffer=b; src.loop=true; const fl=audioCtx.createBiquadFilter(); fl.type='lowpass'; fl.frequency.value=1000; const g=audioCtx.createGain(); g.gain.value=0.05; src.connect(fl); fl.connect(g); g.connect(audioCtx.destination); src.start(); }
-  function padChord(freqs, t, dur){ freqs.forEach(f=>{ [-8,6].forEach(det=>{ const o=audioCtx.createOscillator(); o.type='sawtooth'; o.frequency.value=f; o.detune.value=det; const g=audioCtx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.12,t+0.15); g.gain.exponentialRampToValueAtTime(0.0001,t+dur); const lpf=audioCtx.createBiquadFilter(); lpf.type='lowpass'; lpf.frequency.setValueAtTime(1200,t); lpf.Q.value=0.7; o.connect(lpf); lpf.connect(g); g.connect(master.bus); o.start(t); o.stop(t+dur+0.05); }); }); }
-  function harp(freq, t){ const o=audioCtx.createOscillator(); o.type='triangle'; const g=audioCtx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.10,t+0.01); g.gain.exponentialRampToValueAtTime(0.0001,t+0.5); const hp=audioCtx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=250; o.frequency.value=freq*2; o.connect(hp); hp.connect(g); g.connect(master.bus); o.start(t); o.stop(t+0.52); }
-  const scale=['D4','E4','F4','G4','A4','C5','D5'];
-  const chords=[ ['D3','A3','F4'], ['Bb2','F3','D4'], ['F3','C4','A4'], ['C3','G3','E4'] ].map(ch=>ch.map(noteFreq));
-  const kickPat=[1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0];
-  const snrPat=[0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0];
-  const hatPat=Array.from({length:16},(_,i)=> i%2 ? 0.08:0.06);
-  function nextNote(){ currentStep=(currentStep+1)%16; nextNoteTime += secondsPerBeat/4; }
-  function schedule(t){ const step=currentStep; if(kickPat[step]) kick(t); if(snrPat[step]) snare(t); const hv=hatPat[step]; if(hv) hat(t,hv); if(step%16===0){ const bar=Math.floor((Date.now()/1000)/(secondsPerBeat*4))%chords.length; padChord(chords[bar], t, secondsPerBeat*4.2); } if(step%2===0){ const idx=(step/2)%scale.length; harp(noteFreq(scale[idx]), t); } }
-  function scheduler(){ while(nextNoteTime < audioCtx.currentTime + scheduleAhead){ schedule(nextNoteTime); nextNote(); } schedulerId=setTimeout(scheduler, lookahead); }
-  function startMusic(){ if(isPlaying) return; if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); if(!master.bus) initBuses(); currentStep=15; nextNoteTime=audioCtx.currentTime+0.05; scheduler(); isPlaying=true; }
-  function stopMusic(){ if(schedulerId) clearTimeout(schedulerId); schedulerId=null; isPlaying=false; }
-  // ⬇️ Só UMA referência global para o botão — sem redeclarar
-  musicBtn.addEventListener('click', async ()=>{ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); if(audioCtx.state==='suspended') await audioCtx.resume(); if(!isPlaying){ startMusic(); musicBtn.textContent='Música: ON'; musicBtn.setAttribute('aria-pressed','true'); } else { stopMusic(); musicBtn.textContent='Música: OFF'; musicBtn.setAttribute('aria-pressed','false'); } });
-  window.addEventListener('load', async ()=>{ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); try{ await audioCtx.resume(); startMusic(); }catch(e){} });
-  window.addEventListener('pointerdown', async ()=>{ if(audioCtx && audioCtx.state==='suspended'){ await audioCtx.resume(); if(!isPlaying) startMusic(); } }, {once:true});
+        function updateMenu(screenId) {
+            menuItems.forEach(function(item) {
+                item.classList.remove('active');
+                if (item.dataset.screen === screenId) {
+                    item.classList.add('active');
+                }
+            });
+            menuProgress.textContent = screens[screenId].index + ' de 5';
+        }
 
-  // ===== Mini testes (debug) =====
-  function runTests(){
-    const results=[]; const test=(name,fn)=>{ try{ results.push({name, pass:!!fn()}); }catch(e){ results.push({name, pass:false, error:e.message}); } };
-    test('Existe um único botão de música', ()=> document.querySelectorAll('#btnMusic').length===1);
-    test('Variável musicBtn está definida', ()=> typeof musicBtn!== 'undefined' && musicBtn !== null);
-    test('Renderiza 7 atributos', ()=> { renderAttrs(); return document.querySelectorAll('#attrs .attr').length===7; });
-    test('4 abas disponíveis', ()=> document.querySelectorAll('.tab').length===4);
-    test('Imagem do avatar tem src', ()=> !!document.getElementById('avatarImg').getAttribute('src'));
-    test('Body permite rolagem horizontal quando necessário', ()=> document.body.scrollWidth >= document.body.clientWidth);
-    // Novos testes
-    test('Clique único alterna texto do botão Música', ()=>{ const before=musicBtn.textContent; musicBtn.click(); const after=musicBtn.textContent; musicBtn.click(); return before!==after; });
-    test('Tabs trocam a seção ativa', ()=>{ const t=document.querySelector('.tab[data-tab="skills"]'); t.click(); const on=document.querySelector('#tab-skills').classList.contains('active'); const off=!document.querySelector('#tab-stats').classList.contains('active'); return on && off; });
-    test('HUD abre e fecha sem erro', ()=>{ document.getElementById('btnHUD').click(); const open=document.getElementById('hud').classList.contains('show'); document.getElementById('btnCloseHUD').click(); const closed=!document.getElementById('hud').classList.contains('show'); return open && closed; });
-    console.table(results);
-  }
-  runTests();
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            menuToggle.classList.toggle('open');
+            menuNav.classList.toggle('open');
+            menuOverlay.classList.toggle('open');
+            document.body.style.overflow = menuNav.classList.contains('open') ? 'hidden' : '';
+        }
 
-  // Init conteúdo
-  function init(){ renderAttrs(); renderDerived(); fillSkills(); fillAchievements(); fillTimeline(); }
-  init();
-})();
-</script>
+        function closeMobileMenu() {
+            menuToggle.classList.remove('open');
+            menuNav.classList.remove('open');
+            menuOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners
+        menuToggle.addEventListener('click', toggleMobileMenu);
+        menuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Menu item clicks
+        menuItems.forEach(function(item) {
+            item.addEventListener('click', function() {
+                navigateTo(item.dataset.screen);
+            });
+        });
+
+        // Adiciona evento de clique para o MS
+        menuLogo.addEventListener('click', function() {
+            navigateTo('inicio');
+        });
+
+        // Navigation button clicks
+        document.querySelectorAll('[data-navigate]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                navigateTo(btn.dataset.navigate);
+            });
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', function(e) {
+            if (e.state && e.state.screen) {
+                navigateTo(e.state.screen);
+            } else {
+                var hash = window.location.hash.slice(1);
+                if (screens[hash]) {
+                    navigateTo(hash);
+                }
+            }
+        });
+
+        // Handle initial URL hash
+        document.addEventListener('DOMContentLoaded', function() {
+            var hash = window.location.hash.slice(1);
+            if (hash && screens[hash]) {
+                screens['inicio'].element.classList.remove('active');
+                screens[hash].element.classList.add('active');
+                currentScreen = hash;
+                updateMenu(hash);
+            }
+            
+            history.replaceState({ screen: currentScreen }, '', '#' + currentScreen);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMobileMenu();
+            }
+        });
+    </script>
 </body>
 </html>
