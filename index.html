@@ -44,50 +44,48 @@
             min-height: 100vh;
         }
 
-        /* --- ATUALIZADO V4: Luz Ambiente (Blob Orgânico) --- */
+        /* --- ATUALIZADO V5: Luz Ambiente (Ajuste Desktop) --- */
         .ambient-light {
             position: fixed;
-            width: 550px; /* Aumentado para meio termo (550px) */
-            height: 550px; /* Aumentado para meio termo (550px) */
+            /* Aumentado significativamente para desktop para maior preenchimento */
+            width: 800px; 
+            height: 800px; 
             /* Formato inicial irregular para efeito blob */
             border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
             pointer-events: none;
             z-index: -1;
-            filter: blur(90px); 
-            opacity: 0.07; 
+            filter: blur(100px); 
+            /* Opacidade aumentada para o verde ficar mais aparente no desktop */
+            opacity: 0.12; 
             will-change: transform, border-radius;
         }
 
         .ambient-light-top {
-            top: -250px;
-            left: -250px;
+            top: -300px; /* Ajuste de posição para compensar o tamanho maior */
+            left: -300px;
             background: radial-gradient(circle at center, var(--accent) 0%, #4ade80 50%, transparent 70%);
-            /* Velocidade aumentada (tempo reduzido para 10s) */
             animation: blobFloatTop 10s ease-in-out infinite alternate;
         }
 
         .ambient-light-bottom {
-            bottom: -250px;
-            right: -250px;
+            bottom: -300px;
+            right: -300px;
             background: radial-gradient(circle at center, #4ade80 0%, var(--accent) 50%, transparent 70%);
-            /* Velocidade aumentada (tempo reduzido para 12s) */
             animation: blobFloatBottom 12s ease-in-out infinite alternate-reverse;
         }
 
-        /* Keyframes: Amplitude de movimento aumentada significativamente */
+        /* Keyframes: Amplitude de movimento */
         @keyframes blobFloatTop {
             0% {
                 transform: translate(0, 0) rotate(0deg) scale(1);
                 border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
             }
             33% {
-                /* Movimento mais amplo (100px/60px) */
-                transform: translate(100px, 60px) rotate(15deg) scale(1.15);
+                transform: translate(100px, 60px) rotate(15deg) scale(1.1);
                 border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
             }
             66% {
-                /* Movimento mais amplo (40px/120px) */
-                transform: translate(40px, 120px) rotate(-10deg) scale(0.9);
+                transform: translate(40px, 120px) rotate(-10deg) scale(0.95);
                 border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
             }
             100% {
@@ -102,13 +100,11 @@
                 border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
             }
             33% {
-                /* Movimento mais amplo (-100px/-60px) */
-                transform: translate(-100px, -60px) rotate(-15deg) scale(1.15);
+                transform: translate(-100px, -60px) rotate(-15deg) scale(1.1);
                 border-radius: 30% 70% 70% 30% / 50% 60% 30% 60%;
             }
             66% {
-                /* Movimento mais amplo (-40px/-120px) */
-                transform: translate(-40px, -120px) rotate(10deg) scale(0.85);
+                transform: translate(-40px, -120px) rotate(10deg) scale(0.9);
                 border-radius: 50% 50% 20% 80% / 20% 80% 20% 80%;
             }
             100% {
@@ -909,6 +905,24 @@
             .intro-header {
                 gap: 1rem;
             }
+
+            /* --- V5: RESTAURAÇÃO DO DEGRADÊ PARA MOBILE (Manter como estava antes) --- */
+            .ambient-light {
+                width: 550px;
+                height: 550px;
+                opacity: 0.07;
+                filter: blur(90px);
+            }
+            
+            .ambient-light-top {
+                top: -250px;
+                left: -250px;
+            }
+            
+            .ambient-light-bottom {
+                bottom: -250px;
+                right: -250px;
+            }
         }
     </style>
 </head>
@@ -952,7 +966,7 @@
         <!-- Tela 1: Início -->
         <section class="screen active" id="inicio">
             <div class="screen-content">
-                <!-- ALTERAÇÃO: Container Flex para Foto + Subtítulo -->
+                <!-- Container Flex para Foto + Subtítulo (MANTIDO) -->
                 <div class="intro-header">
                     <img src="https://i.imgur.com/TjOqmEY.png" alt="Marcelo Saavedra" class="profile-thumb">
                     <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
@@ -989,7 +1003,7 @@
         <!-- Tela 2: Portfólio -->
         <section class="screen" id="portfolio">
             <div class="screen-content">
-                <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                <!-- SUBTÍTULO REMOVIDO AQUI -->
                 <h1 class="screen-title"><span class="wave-word">Aqui</span> <span class="wave-word">está</span> <span class="wave-word">a</span> <span class="wave-word">prova</span> <span class="wave-word">de</span> <span class="wave-word">que</span> <span class="wave-word">eu</span> <span class="wave-word">sei</span> <span class="wave-word">fazer</span> <span class="wave-word">o</span> <span class="wave-word">que</span> <span class="wave-word">prometo</span> <span class="highlight wave-word">(ou seja, copys de qualidade)</span></h1>
                 <p class="screen-description">Eu não vou apenas <strong>FALAR</strong> o que eu sei fazer. Você vai <strong>COMPROVAR</strong> pessoalmente. Abaixo eu deixei uma coleção de todo tipo de conteúdo que já criei (seja para redes sociais, anúncios, copys ou SEO). Então, se você está à procura de <strong>um profissional que vai ajudar seu negócio</strong>, esses materiais podem confirmar o que você procura.</p>
                 
@@ -1041,7 +1055,7 @@
         <!-- Tela 3: Estratégia -->
         <section class="screen" id="estrategia">
             <div class="screen-content">
-                <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                <!-- SUBTÍTULO REMOVIDO AQUI -->
                 <h1 class="screen-title"><span class="wave-word">Estratégia</span> <span class="wave-word">e</span> <span class="wave-word">execução.</span> <span class="highlight wave-word">Entenda exatamente</span> <span class="wave-word">o</span> <span class="wave-word">que</span> <span class="wave-word">e</span> <span class="wave-word">como</span> <span class="wave-word">eu</span> <span class="wave-word">escrevo</span></h1>
                 <p class="screen-description">Sou um profissional sênior, não porque soa bonito, mas porque tenho um foco bastante estratégico. Eu sei que até o Chat GPT pode fazer um texto OK, mas pra você vender bem, <strong>seus conteúdos precisam ser (e serão) incríveis!</strong></p>
                 
@@ -1078,7 +1092,7 @@
         <!-- Tela 4: Contato -->
         <section class="screen" id="contato">
             <div class="screen-content">
-                <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                <!-- SUBTÍTULO REMOVIDO AQUI -->
                 <h1 class="screen-title"><span class="wave-word">Sonha</span> <span class="wave-word">com</span> <span class="wave-word">um</span> <span class="wave-word">marketing</span> <span class="wave-word">de</span> <span class="wave-word">qualidade</span> <span class="wave-word">que</span> <span class="wave-word">venda</span> <span class="wave-word">ainda</span> <span class="wave-word">mais?</span> <span class="highlight wave-word">Então vamos conversar!</span></h1>
                 <p class="screen-description">Eu sei que seu tempo é corrido, mas <strong>também sei que você quer vender mais</strong>. Então me avise seu melhor dia e horário e marcamos uma conversa rápida, sem compromisso e focada 100% em estratégia.</p>
                 
@@ -1096,12 +1110,12 @@
         <!-- Tela 5: Sobre -->
         <section class="screen" id="sobre">
             <div class="screen-content">
-                <!-- ALTERAÇÃO: Foto Grande Centralizada -->
+                <!-- Foto Grande Centralizada -->
                 <div class="about-header-img">
                     <img src="https://i.imgur.com/TjOqmEY.png" alt="Marcelo Saavedra" class="profile-large">
                 </div>
 
-                <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                <!-- SUBTÍTULO REMOVIDO AQUI -->
                 <h1 class="screen-title"><span class="wave-word">Prazer,</span> <span class="wave-word">me</span> <span class="wave-word">chamo</span> <span class="highlight wave-word">Marcelo Saavedra</span> <span class="wave-word">e</span> <span class="wave-word">quero</span> <span class="wave-word">fazer</span> <span class="wave-word">seu</span> <span class="wave-word">marketing</span> <span class="wave-word">ir</span> <span class="wave-word">além</span></h1>
                 <p class="screen-subtitle">Eu sei que você não entrou aqui pra ler um textão, então vou te mostrar rapidamente quem eu sou, e um pouquinho da minha jornada.</p>
                 
