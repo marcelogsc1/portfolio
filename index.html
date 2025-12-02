@@ -44,6 +44,80 @@
             min-height: 100vh;
         }
 
+        /* --- ATUALIZADO V4: Luz Ambiente (Blob Orgânico) --- */
+        .ambient-light {
+            position: fixed;
+            width: 550px; /* Aumentado para meio termo (550px) */
+            height: 550px; /* Aumentado para meio termo (550px) */
+            /* Formato inicial irregular para efeito blob */
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(90px); 
+            opacity: 0.07; 
+            will-change: transform, border-radius;
+        }
+
+        .ambient-light-top {
+            top: -250px;
+            left: -250px;
+            background: radial-gradient(circle at center, var(--accent) 0%, #4ade80 50%, transparent 70%);
+            /* Velocidade aumentada (tempo reduzido para 10s) */
+            animation: blobFloatTop 10s ease-in-out infinite alternate;
+        }
+
+        .ambient-light-bottom {
+            bottom: -250px;
+            right: -250px;
+            background: radial-gradient(circle at center, #4ade80 0%, var(--accent) 50%, transparent 70%);
+            /* Velocidade aumentada (tempo reduzido para 12s) */
+            animation: blobFloatBottom 12s ease-in-out infinite alternate-reverse;
+        }
+
+        /* Keyframes: Amplitude de movimento aumentada significativamente */
+        @keyframes blobFloatTop {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            }
+            33% {
+                /* Movimento mais amplo (100px/60px) */
+                transform: translate(100px, 60px) rotate(15deg) scale(1.15);
+                border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+            }
+            66% {
+                /* Movimento mais amplo (40px/120px) */
+                transform: translate(40px, 120px) rotate(-10deg) scale(0.9);
+                border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            }
+        }
+
+        @keyframes blobFloatBottom {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+            33% {
+                /* Movimento mais amplo (-100px/-60px) */
+                transform: translate(-100px, -60px) rotate(-15deg) scale(1.15);
+                border-radius: 30% 70% 70% 30% / 50% 60% 30% 60%;
+            }
+            66% {
+                /* Movimento mais amplo (-40px/-120px) */
+                transform: translate(-40px, -120px) rotate(10deg) scale(0.85);
+                border-radius: 50% 50% 20% 80% / 20% 80% 20% 80%;
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+        }
+
+
         /* Decorative Grid Background */
         .decoration-grid {
             position: fixed;
@@ -371,6 +445,57 @@
         @keyframes highlightUnderline {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 0.8; }
+        }
+
+        /* --- NOVO: Estilos para foto de perfil e cabeçalho --- */
+        .intro-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+        }
+        
+        .screen.active .intro-header {
+            animation: fadeInUp 0.6s ease forwards 0.2s;
+        }
+
+        /* Foto pequena (Home) */
+        .profile-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            /* Sem contorno */
+        }
+
+        /* Foto Grande (Sobre) */
+        .about-header-img {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+        }
+
+        .screen.active .about-header-img {
+            animation: fadeInUp 0.6s ease forwards 0.2s;
+        }
+
+        .profile-large {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            /* Sem contorno */
+        }
+
+        /* Ajuste do subtítulo dentro do container flex na Home */
+        .intro-header .screen-subtitle {
+            margin-bottom: 0;
+            opacity: 1; /* A animação é controlada pelo pai .intro-header */
+            animation: none;
         }
 
         .screen-subtitle {
@@ -774,11 +899,25 @@
             .decoration-line {
                 display: none;
             }
+            
+            /* Ajustes Mobile para nova foto */
+            .profile-thumb {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .intro-header {
+                gap: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     
+    <!-- NOVO: Elementos de Luz Ambiente -->
+    <div class="ambient-light ambient-light-top"></div>
+    <div class="ambient-light ambient-light-bottom"></div>
+
     <div class="decoration-grid"></div>
     <div class="decoration decoration-line"></div>
     <div class="decoration-corner decoration-corner-tl"></div>
@@ -813,7 +952,12 @@
         <!-- Tela 1: Início -->
         <section class="screen active" id="inicio">
             <div class="screen-content">
-                <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                <!-- ALTERAÇÃO: Container Flex para Foto + Subtítulo -->
+                <div class="intro-header">
+                    <img src="https://i.imgur.com/TjOqmEY.png" alt="Marcelo Saavedra" class="profile-thumb">
+                    <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
+                </div>
+                
                 <!-- CORREÇÃO DE PORTUGUÊS: "convert" para "converter" -->
                 <h1 class="screen-title"><span class="wave-word">É</span> <span class="wave-word">simples:</span> <span class="wave-word">você</span> <span class="wave-word">quer</span> <span class="wave-word">que</span> <span class="wave-word">seu</span> <span class="wave-word">negócio</span> <span class="highlight wave-word">venda</span>. <span class="wave-word">Eu</span> <span class="wave-word">escrevo</span> <span class="wave-word">os</span> <span class="wave-word">conteúdos</span> <span class="wave-word">que</span> <span class="wave-word">vão</span> <span class="highlight wave-word">converter</span>.</h1>
                 <p class="screen-description">Olá, meu nome é Marcelo e esse não é um site convencional. O que você vai encontrar aqui não são textos bonitos e promessas vazias. Mas sim, a prova de que eu <strong>posso escrever conteúdos que vendem</strong> bem. E se é isso o que você quer pro seu negócio, então é só escolher o que mais te interessa abaixo:</p>
@@ -952,6 +1096,11 @@
         <!-- Tela 5: Sobre -->
         <section class="screen" id="sobre">
             <div class="screen-content">
+                <!-- ALTERAÇÃO: Foto Grande Centralizada -->
+                <div class="about-header-img">
+                    <img src="https://i.imgur.com/TjOqmEY.png" alt="Marcelo Saavedra" class="profile-large">
+                </div>
+
                 <p class="screen-subtitle">Marcelo Saavedra | Copywriter | SEO | Estrategista de Conteúdo</p>
                 <h1 class="screen-title"><span class="wave-word">Prazer,</span> <span class="wave-word">me</span> <span class="wave-word">chamo</span> <span class="highlight wave-word">Marcelo Saavedra</span> <span class="wave-word">e</span> <span class="wave-word">quero</span> <span class="wave-word">fazer</span> <span class="wave-word">seu</span> <span class="wave-word">marketing</span> <span class="wave-word">ir</span> <span class="wave-word">além</span></h1>
                 <p class="screen-subtitle">Eu sei que você não entrou aqui pra ler um textão, então vou te mostrar rapidamente quem eu sou, e um pouquinho da minha jornada.</p>
